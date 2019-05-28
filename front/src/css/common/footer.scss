@@ -1,4 +1,4 @@
-@import "init.scss";
+@import "init";
 @import "constants.scss";
 $navHeight:64px;
 body{
@@ -24,7 +24,7 @@ body{
                 width: 168px;
                 height: 54px;
                 float: left;   //在使用float时要考虑父节点中所有子节点也要浮动，如果不需要就要限制
-                background: url("../../src/image/logo-test.png");
+                background: url("../../image/logo-test.png");
                 background-repeat: no-repeat;
                 background-size:100%;
             }
@@ -74,7 +74,7 @@ body{
                                 }
                             }
                             .weixin{
-                                background: url("../../src/image/logo-test.png");
+                                background: url("../../image/logo-test.png");
                                 background-repeat: no-repeat;
                                 background-size: 100%;
                                 cursor: pointer; //改变显示状态
@@ -86,7 +86,7 @@ body{
                                 .wx-qcode{
                                     width: 204px;
                                     height: 204px;
-                                    background: url("../../src/image/night.jpg");
+                                    background: url("../../image/night.jpg");
                                     background-size: 100%;
                                     position: absolute;  //绝对定位
                                     background-repeat: no-repeat;
@@ -98,7 +98,7 @@ body{
                             }
                             .weibo{
                                 margin-left: 20px;
-                                background: url("../../src/image/logo-test.png");
+                                background: url("../../image/logo-test.png");
                                 background-repeat: no-repeat;
                                 background-size: 100%;
 

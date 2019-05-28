@@ -1,7 +1,7 @@
-@import "header.scss";
-@import "body.scss";
-@import "footer.scss";
-@import "constants.scss";
+@import "../common/header.scss";
+@import "../common/body";
+@import "../common/footer";
+@import "../common/constants";
 
 .main{
   .wrapper{
@@ -45,7 +45,7 @@
               float: left;
             }
             .share-item{
-              background-image: url("../../src/image/logo-test.png");
+              background-image: url("../../image/logo-test.png");
               background-size: 200%;
               background-repeat: no-repeat;
               width: $newsinfoheight;

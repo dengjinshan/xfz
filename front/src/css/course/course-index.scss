@@ -1,0 +1,109 @@
+@import "../common/init.scss";
+@import "../common/header.scss";
+@import "../common/footer";
+@import "../common/body";
+@import "../common/constants";
+
+.main{
+  margin-top: 64px;
+  .course-nav{
+    $coursenaavheight: 54px;
+    width:100%;
+    height:$coursenaavheight;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.1);  //阴影  rgba(0,0,0,0.1) 红绿蓝 透明度
+    .nav-container{
+      width:$pageWidth;
+      height:$coursenaavheight;
+      margin: 0 auto;
+      line-height: $coursenaavheight;
+
+      h3.title{
+        float: left;
+        color: #696969;
+        font-size: 24px;
+      }
+      .nav-list{
+        float: left;
+        margin-left: 100px;
+
+        li{
+          float: left;
+          margin-right: 40px;
+          list-style: none;
+
+          a{
+            color: #888888;
+            text-decoration: none;
+          }
+          &.active{
+            a{
+              color: $mainFontcolor;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+  .wrapper{
+    .course-list{
+      margin-top: 20px;
+      display: flex;  //flex布局横向水平布局，总宽度后自动换行
+      flex-direction: row;  //横向布局
+      flex-wrap: wrap;  //一行排列不下时自动换行
+      justify-content: space-between;  //保持间距
+      li{
+        $thumbnailhight:158px;
+        $courseitemheight:280px;
+        width: 278px;
+        height:$courseitemheight;
+        background: #ffffff;
+        margin-top: 20px;
+        text-decoration: none;
+        list-style: none;
+        .thumbnail-group{
+          width:100%;
+          height:$thumbnailhight;
+          img{
+            width: 278px;
+            height: 170px;
+          }
+        }
+        .course-info{
+          padding: 16px;
+          width:100%;
+          box-sizing: border-box;
+          height:$courseitemheight - $thumbnailhight;
+          position: relative;
+
+          .title{
+            color: $mainFontcolor;
+          }
+          .author{
+            margin-top: 10px;
+            color: $assistfrontcolor;
+            font-size: 14px;
+          }
+          .price-group{
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 16px;
+            text-align: right;  //行内元素靠右
+
+            .free{
+              color: rgb(126,211,33);
+            }
+            .pay{
+              color: rgb(245,74,74);
+            }
+          }
+        }
+        &:hover{
+          box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+      }
+    }
+  }
+}
