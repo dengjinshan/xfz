@@ -1,32 +1,27 @@
-@import "init";
+@import "init.scss";
 @import "constants.scss";
-$navHeight:64px;
-body{
-    background: #f2f2f2;
-}
 
 .header{
-    width: 100%;  //跟随浏览器变化，自适应100%
+    width: 100%;
     height: $navHeight;
     background: #3a3a3a;
     position: fixed;
-    left:0;
-    right:0;
-    top:0;
-    z-index: 100;  //控制上下层关系
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 100;
 
     .container{
-        width: $pageWidth; //这里用文件中常量
+        width: $pageWidth;
         height: 100%;
-        background: #3a3a3a;
         margin: 0 auto;
         overflow: hidden;
 
         .logo-box{
             width: 140px;
-            height: 54px;
-            background: url("https://www.xfz.cn/static/build/images/logo.png") no-repeat;
-            margin-top: 10px;
+            height: 49px;
+            background: url("http://www.xfz.cn/static/build/images/logo.png") no-repeat;
+            margin-top: 8px;
             float: left;
 
             a{
@@ -44,38 +39,32 @@ body{
                 float: left;
                 margin-right: 40px;
                 line-height: $navHeight;
+                height: $navHeight;
                 box-sizing: border-box;
-                list-style: none;  //不使用项目符号
                 a{
-                    color: white;
-                    text-decoration: none;  //没有下划线
+                    color: #fff;
                 }
-                &:first-of-type{
+
+                &.active{
                     border-bottom: 5px solid #5c87d9;
                 }
-                &.active{
-                    a{
-                        color: #5c87d9;  //选中状态激活时的样式
-                    }
-                }
             }
+
         }
 
         .auth-box{
             float: right;
             line-height: $navHeight;
             height: $navHeight;
-            color: #ffffff;
-            margin-right: 5px;
+            color: #fff;
 
             .iconfont{
-                color: #ffffff;
+                color: #fff;
                 font-size: 20px;
             }
+
             a{
-                color: #ffffff;
-                text-decoration: none;
-                //float: left;
+                color: #fff;
             }
         }
     }

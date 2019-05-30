@@ -1,9 +1,5 @@
-@import "init";
 @import "constants.scss";
-$navHeight:64px;
-body{
-    background: #f2f2f2;
-}
+
 .footer{
     font-size: 14px;
     color: #c9c9c9;
@@ -15,22 +11,23 @@ body{
         box-sizing: border-box;
 
         .top-inner-group{
-            width:$pageWidth;
+            width: $pageWidth;
             margin: 0 auto;
-            //overflow: hidden;  //溢出不显示，控制子节点浮动(清除浮动)
-            position: absolute;
+            //overflow: hidden;
+            position: relative;
 
             .logo-box{
                 width: 168px;
                 height: 54px;
-                float: left;   //在使用float时要考虑父节点中所有子节点也要浮动，如果不需要就要限制
-                background: url("../../image/logo-test.png");
+                float: left;
+                background: url("http://xfz.cn/static/build/images/foot-logo.png");
                 background-repeat: no-repeat;
-                background-size:100%;
+                background-size: 100%;
             }
             .detail-group{
                 float: left;
                 margin-left: 84px;
+
                 .line1{
                     overflow: hidden;
                     .links{
@@ -38,19 +35,17 @@ body{
                         overflow: hidden;
                         li{
                             float: left;
-                            list-style: none;
                             padding: 0 10px;
-                             a{
-                                text-decoration: none;
+                            a{
                                 color: #c9c9c9;
                             }
                             &:first-of-type{
-                                padding-left:0;
+                                padding-left: 0;
                             }
                             &:last-of-type{
-                                border-right: none;  //将最右侧边线取消
+                                border-right: none;
                             }
-                            border-right: 1px solid #c9c9c9;  //设置右侧边线
+                            border-right:1px solid #c9c9c9;
                         }
                     }
                     .about-us{
@@ -58,7 +53,6 @@ body{
                         margin-left: 40px;
                         .title{
                             float: left;
-                            margin-right: 20px;
                         }
 
                         .social-group{
@@ -66,42 +60,37 @@ body{
                             overflow: hidden;
                             li{
                                 float: left;
-                                list-style: none;
-                                color: #ffffff;
+                                color: #fff;
                                 .text{
                                     margin-left: 24px;
-                                    color: #ffffff;
                                 }
                             }
                             .weixin{
-                                background: url("../../image/logo-test.png");
+                                background: url("https://www.xfz.cn/static/build/images/wx-icon.png");
                                 background-repeat: no-repeat;
-                                background-size: 100%;
-                                cursor: pointer; //改变显示状态
-                                //position: relative;  //相对定位
-                                &:hover .wx-qcode{
+                                background-size: 30%;
+                                cursor: pointer;
+                                &:hover .wx-qrcode{
                                     display: block;
-                                }  //hover事件，聚焦改变属性
-
-                                .wx-qcode{
+                                }
+                                .wx-qrcode{
                                     width: 204px;
                                     height: 204px;
-                                    background: url("../../image/night.jpg");
+                                    background: url("https://www.xfz.cn/static/build/images/wxQr.jpg");
                                     background-size: 100%;
-                                    position: absolute;  //绝对定位
-                                    background-repeat: no-repeat;
+                                    position: absolute;
                                     right: 360px;
-                                    top:-120px;
-                                    display: none;  //默认隐藏
+                                    top: -220px;
+                                    display: none;
                                 }
-
                             }
                             .weibo{
                                 margin-left: 20px;
-                                background: url("../../image/logo-test.png");
+                                background: url("https://www.xfz.cn/static/build/images/xl-icon.png");
                                 background-repeat: no-repeat;
-                                background-size: 100%;
-
+                                background-size: 18%;
+                                a{
+                                    color: #fff;
                                 }
                             }
                         }
@@ -114,7 +103,7 @@ body{
                     .address{
                         float: left;
                     }
-                    .contant{
+                    .contact{
                         float: left;
                         margin-left: 40px;
                     }
@@ -122,3 +111,11 @@ body{
             }
         }
     }
+
+    .bottom-group{
+        background: #383e44;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+    }
+}
