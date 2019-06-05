@@ -75,4 +75,6 @@ gulp.task("bs",function () {
 });
 
 // 创建一个默认的任务
-gulp.task("default",['bs','watch']);
+// gulp.task("default",['bs','watch']);
+// 只负责监听文件修改，执行自动压缩文件
+gulp.task("default", ['watch']);

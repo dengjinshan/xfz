@@ -39,14 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'apps.cms',
-    'apps.news'
+    'apps.news',
+    'apps.xfzauth',
+    'apps.course',
+    'apps.payinfo',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -87,7 +90,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': 'root'
+        'PASSWORD': 'mysql'
     }
 }
 
@@ -110,6 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# 使用自定义用户模型
+AUTH_USER_MODEL = 'xfzauth.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
