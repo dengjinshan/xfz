@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.core.cache import cache
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -8,6 +9,7 @@ from apps.xfzauth.forms import LoginForm
 from utils import restful
 from utils.captcha.xfzcaptcha import Captcha  # 验证码
 from io import BytesIO  # 读写io操作
+from utils.aliyunsdk.aliyunsms import send_sms
 
 
 class LoginView(View):
@@ -64,4 +66,22 @@ def img_captcha(request):
     response.write(out.read())
     # 获取文件长度，out.tell()文件读取后指针移动到尾部，获取指针长度就是文件的大小
     response['Content-length'] = out.tell()
+    # 将验证码存储在memcache中(小写，过期时间)
+    cache.set(text.lower(), text.lower(), 5*60)
     return response
+
+
+# 发送短信验证码
+def sms_captcha(request):
+    telephone = request.GET.get('telephone')
+    code = Captcha.gene_text()
+    result = send_sms(telephone,code)  # 调用发送短信短信任务
+    print(result)
+    return restful.ok()
+
+def cache_test(request):
+    # 读取缓存
+    cache.set('username', 'zhiliao', 60)
+    result = cache.get('username')
+    print(result)
+    return HttpResponse('success')
