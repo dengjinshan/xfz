@@ -1,12 +1,49 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
+from apps.news.models import News, NewsCategory, Comment
+from utils import restful
+from xfz import settings
+from .serializers import NewsSerializers
+from .forms import PublicCommentForm
 
-# Create your views here.
 def index(request):
-    return render(request, 'news/index.html')
+    newses = News.objects.all()
+    categories = NewsCategory.objects.all()
+    context = {
+        'newses': newses,
+        'categories': categories
+    }
+    return render(request, 'news/index.html', context=context)
+
+def new_list(request):
+    page = int(request.GET.get('p', 1))
+    start = (page-1)*settings.ONE_PAGE_NEWS_COUNT
+    end = start + settings.ONE_PAGE_NEWS_COUNT
+
+    newses = News.objects.order_by('-pub_time')[start:end]
+    serializer = NewsSerializers(newses, many=True)
+    data = serializer.data
+    return restful.result(data=data)
 
 def news_detail(request, news_id):
-    return render(request, 'news/news_detail.html')
+    try:
+        news = News.objects.get(pk=news_id)
+        context = {
+            'news':news
+        }
+        return render(request, 'news/news_detail.html', context)
+    except:
+        raise Http404
 
+def public_comment(request):
+    form = PublicCommentForm(request.POST)
+    if form.is_valid():
+        news_id = form.cleaned_data.get('news_id')
+        content = form.cleaned_data.get('content')
+        news = News.objects.get(pk=news_id)
+        comment = Comment.objects.create(content=content, news=news, author=request.user)
+        return restful.ok()
+    else:
+        return restful.params_error(message=form.get_errors())
 def search(request):
     return render(request, 'search/search.html')

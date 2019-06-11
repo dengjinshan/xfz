@@ -5,7 +5,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 
-from apps.xfzauth.forms import LoginForm
+from apps.xfzauth.forms import LoginForm, RegisterForm
+from apps.xfzauth.models import User
 from utils import restful
 from utils.captcha.xfzcaptcha import Captcha  # 验证码
 from io import BytesIO  # 读写io操作
@@ -75,8 +76,9 @@ def img_captcha(request):
 def sms_captcha(request):
     telephone = request.GET.get('telephone')
     code = Captcha.gene_text()
-    result = send_sms(telephone,code)  # 调用发送短信短信任务
-    print(result)
+    # result = send_sms(telephone,code)  # 调用发送短信短信任务
+    # print(result)
+    print(code)
     return restful.ok()
 
 def cache_test(request):
@@ -85,3 +87,20 @@ def cache_test(request):
     result = cache.get('username')
     print(result)
     return HttpResponse('success')
+
+class Register(View):
+    # 注册
+    def post(self, request):
+        # 表单验证
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            # 读取表单数据
+            telephone = form.cleaned_data.get('telephone')
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            # 创建用户
+            user = User.objects.create_user(username=username, password=password, telephone=telephone)
+            login(request, user)
+            return restful.ok()
+        else:
+            return restful.params_error(message=form.get_errors())
