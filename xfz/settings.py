@@ -25,7 +25,8 @@ SECRET_KEY = '45$x68m0#&6s6ddde9q5@h^8@sx0q-9ai@&k-)@3_(mxz=7@jo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','118.24.0.251']
+
 
 # Application definition
 
@@ -37,14 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 添加搜索引擎
+    'haystack',
+
+    'apps.xfzauth',
     'apps.cms',
     'apps.news',
-    'apps.xfzauth',
     'apps.course',
-    'apps.payinfo',
     'apps.ueditor',
     'rest_framework',
     'debug_toolbar',
+    'apps.payinfo',
 ]
 
 MIDDLEWARE = [
@@ -52,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -72,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
             'builtins':[
                 'django.templatetags.static'
@@ -116,8 +121,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# 使用自定义用户模型
 AUTH_USER_MODEL = 'xfzauth.User'
+
+# 缓存配置
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211'
+    }
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -141,22 +154,15 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'front','dist')
 ]
 
-# 缓存memcaches
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211'
-    }
-}
-
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
 
 # Qiniu配置
 QINIU_ACCESS_KEY = 'Xpcdj_aETnBqhEovBCdL4FziK1qWypQAEGBWSOy7'
 QINIU_SECRET_KEY = 'frxljlK17GKI62Ee0_3X1gJh8AqBKj9e4vYYLFFj'
 QINIU_BUCKET_NAME = 'djs_test'
-QINIU_DOMAIN = 'http://7xqenu.com1.z0.glb.clouddn.com/'
+QINIU_DOMAIN = 'http(s)://up.qiniup.com'
 
 # 七牛和自己的服务器，最少要配置一个
 # UEditor配置
@@ -166,10 +172,15 @@ UEDITOR_QINIU_SECRET_KEY = QINIU_SECRET_KEY
 UEDITOR_QINIU_BUCKET_NAME = QINIU_BUCKET_NAME
 UEDITOR_QINIU_DOMAIN = QINIU_DOMAIN
 
-UEDITOR_UPLOAD_TO_SERVER = True
-URDITOR_UPLOAD_PATH = MEDIA_ROOT
-UEDITOR_CONFIG_PATH = os.path.join(BASE_DIR, 'front', 'dist', 'ueditor', 'config.json')
 
+UEDITOR_UPLOAD_TO_SERVER = True
+UEDITOR_UPLOAD_PATH = MEDIA_ROOT
+
+UEDITOR_CONFIG_PATH = os.path.join(BASE_DIR,'front','dist','ueditor','config.json')
+
+
+# 一次加载多少篇文章
+ONE_PAGE_NEWS_COUNT = 2
 
 
 # Django-Debug-Toolbar相关的配置
@@ -203,4 +214,19 @@ DEBUG_TOOLBAR_PANELS = [
 
 DEBUG_TOOLBAR_CONFIG = {
     'JQUERY_URL': ''
+}
+
+# 百度云的配置
+# 控制台->用户中心->用户ID
+BAIDU_CLOUD_USER_ID = '	0849ae98749a43759f802d429aa448ec'
+# 点播VOD->全局设置->发布设置->安全设置->UserKey
+BAIDU_CLOUD_USER_KEY = 'd1d1e6ca65144bf1'
+
+HAYSTACK_CONNECTIONS = {
+    'default':{
+        # 设置haystack的搜索引擎
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        # 设置搜索引擎文件位置
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    }
 }

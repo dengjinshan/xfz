@@ -93,7 +93,7 @@
                 </li>
                 <li class="header">新闻管理</li>
                 <li>
-                    <a href="#">
+                    <a href="{% url 'cms:news_list' %}">
                         <i class="fa fa-list"></i>
                         <span>新闻列表</span>
                     </a>
@@ -111,18 +111,27 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{% url 'cms:banners' %}">
                         <i class="fa fa-window-restore"></i>
                         <span>轮播图</span>
                     </a>
                 </li>
                 <li class="header">课程管理</li>
                 <li>
-                    <a href="#">
+                    <a href="{% url 'cms:pub_course' %}">
                         <i class="fa fa-tv"></i>
                         <span>发布课程</span>
                     </a>
                 </li>
+                {% if user.is_superuser %}
+                    <li class="header">员工管理</li>
+                    <li>
+                        <a href="{% url 'cms:staffs' %}">
+                            <i class="fa fa-group"></i>
+                            <sapn>员工管理</sapn>
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </section>
     </aside>

@@ -41,6 +41,8 @@ News.prototype.listenQiniuUploadFileEvent = function () {
             'success': function (result) {
                 if(result['code'] === 200){
                     var token = result['data']['token'];
+                    // a.b.jpg = ['a','b','jpg']
+                    // 198888888 + . + jpg = 1988888.jpg
                     var key = (new Date()).getTime() + '.' + file.name.split('.')[1];
                     var putExtra = {
                         fname: key,
